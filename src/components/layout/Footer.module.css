@@ -1,0 +1,37 @@
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.socialList {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.socialList li {
+  margin: 0 1em;
+}
+
+.socialList li:hover {
+  color: #ffbb33;
+}
+
+.socialList svg {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.copyright {
+  margin-top: 2em;
+}
+
+.copyright span {
+  font-weight: bold;
+  color: #ffbb33;
+}
