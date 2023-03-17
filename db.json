@@ -12,11 +12,11 @@
       "id": 1
     },
     {
-      "name": "2",
-      "budget": "2.5",
+      "name": "Editado",
+      "budget": "1300",
       "category": {
-        "id": "3",
-        "name": "Design"
+        "id": "2",
+        "name": "Desenvolvimento"
       },
       "cost": 0,
       "services": [],
