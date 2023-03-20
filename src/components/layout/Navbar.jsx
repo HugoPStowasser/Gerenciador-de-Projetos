@@ -6,7 +6,7 @@ import logo from "../../img/costs_logo.png";
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
-      <Container>
+      <div className={styles.icon}>
         <Link to="/">
           <img src={logo} alt="Costs"></img>
         </Link>
@@ -24,7 +24,7 @@ const Navbar = () => {
             <Link to="/contact">Contato</Link>
           </li>
         </ul>
-      </Container>
+      </div>
     </nav>
   );
 };

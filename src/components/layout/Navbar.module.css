@@ -5,6 +5,14 @@
     padding: 1em;
 }
 
+.icon {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
 .list{
     display: flex;
     list-style: none;
