@@ -61,21 +61,24 @@ const Projects = () => {
       {message && <Message type="success" msg={message} />}
       {projectMessage && <Message type="success" msg={projectMessage} />}
       <Container customClass="start">
+        <div className={styles.flexContainer}>
+
         {projects.length > 0 &&
           projects.map((project) => (
             <ProjectCard
-              key={project.id}
-              id={project.id}
-              name={project.name}
-              budget={project.budget}
-              category={project.category.name}
-              handleRemove={removeProject}
+            key={project.id}
+            id={project.id}
+            name={project.name}
+            budget={project.budget}
+            category={project.category.name}
+            handleRemove={removeProject}
             />
-          ))}
+            ))}
         {!removeLoading && <Loading />}
         {removeLoading && projects.lenght === 0 && (
           <p>Não há projetos cadastrados!</p>
-        )}
+          )}
+          </div>
       </Container>
     </div>
   );

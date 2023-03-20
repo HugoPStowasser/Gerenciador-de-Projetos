@@ -7,3 +7,8 @@
     justify-content: space-between;
     margin-bottom: 2em;
 }
+
+.flexContainer{
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -7,11 +7,13 @@ import { Container } from "../layout/Container";
 import { ProjectForm } from "../project/ProjectForm";
 import { Message } from "../layout/Message";
 import { ServiceForm } from "../service/ServiceForm";
+import { ServiceCard } from "../service/ServiceCard";
 
 const Project = () => {
   const { id } = useParams();
 
   const [project, setProject] = useState([]);
+  const [services, setServices] = useState([]);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showServiceForm, setShowServiceForm] = useState(false);
   const [message, setMessage] = useState("");
@@ -28,6 +30,7 @@ const Project = () => {
         .then((resp) => resp.json())
         .then((data) => {
           setProject(data);
+          setServices(data.services);
         })
         .catch((err) => console.log(err));
     }, 1000);
@@ -92,6 +95,31 @@ const Project = () => {
       .finally(setMessage(""));
   };
 
+  const removeService = (id, cost) => {
+    const servicesUpdated = project.services.filter(
+      (service) => service.id !== id
+    );
+
+    const projectUpdated = project;
+
+    projectUpdated.services = servicesUpdated;
+    projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost);
+
+    fetch(`http://localhost:5000/projects/${projectUpdated.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(projectUpdated),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setProject(projectUpdated);
+        setServices(servicesUpdated);
+        setMessage("Serviço removido com sucesso!");
+      });
+  };
+
   const toggleProjectForm = () => {
     setShowProjectForm(!showProjectForm);
   };
@@ -107,10 +135,12 @@ const Project = () => {
           <Container customClass="column">
             {message && <Message type={type} msg={message} />}
             <div className={styles.detailsContainer}>
-              <h1>Projeto: {project.name}</h1>
-              <button className={styles.btn} onClick={toggleProjectForm}>
-                {!showProjectForm ? "Editar projeto" : "Fechar"}
-              </button>
+              <div className={styles.flexContainer}>
+                <h1>Projeto: {project.name}</h1>
+                <button className={styles.btn} onClick={toggleProjectForm}>
+                  {!showProjectForm ? "Editar projeto" : "Fechar"}
+                </button>
+              </div>
               {!showProjectForm ? (
                 <div className={styles.projectInfo}>
                   <p>
@@ -134,10 +164,12 @@ const Project = () => {
               )}
             </div>
             <div className={styles.serviceFormContainer}>
-              <h2>Adicione um serviço:</h2>
-              <button className={styles.btn} onClick={toggleServiceForm}>
-                {!showProjectForm && <ServiceForm />}
-              </button>
+              <div className={styles.flexContainer}>
+                <h2>Adicione um serviço:</h2>
+                <button className={styles.btn} onClick={toggleServiceForm}>
+                  Adicionar serviço
+                </button>
+              </div>
               <div className={styles.projectInfo}>
                 {showServiceForm && (
                   <ServiceForm
@@ -150,7 +182,18 @@ const Project = () => {
             </div>
             <h2>Serviços</h2>
             <Container customClass="start">
-              <p>Itens de serviços</p>
+              {services.length > 0 &&
+                services.map((service) => (
+                  <ServiceCard
+                    id={service.id}
+                    name={service.name}
+                    cost={service.cost}
+                    description={service.description}
+                    key={service.id}
+                    handleRemove={removeService}
+                  />
+                ))}
+              {services.length === 0 && <p>Não há serviços cadastrados.</p>}
             </Container>
           </Container>
         </div>

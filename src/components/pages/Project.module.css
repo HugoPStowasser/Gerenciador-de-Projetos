@@ -23,11 +23,18 @@
     border-bottom: 1px solid #7A7A7A;
     margin-bottom: 1.2em;
     padding-bottom: 1.2em;
-    display: flex;
     justify-content: space-between;
     justify-items: auto;
     flex-wrap: wrap;
+    
 }
+
+.flexContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 
 .btn {
     background-color: #222;
